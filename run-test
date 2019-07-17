@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+GOROOT=/usr/local/go #gosetup
+go test ./... #gosetup
+
+if [ $? -ne 0 ]; then
+ echo "Tests must pass before commit!"
+ exit 1
+fi
