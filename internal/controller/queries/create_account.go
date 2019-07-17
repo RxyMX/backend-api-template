@@ -1,6 +1,9 @@
 package queries
 
-import validation "github.com/go-ozzo/ozzo-validation"
+import (
+	"github.com/go-ozzo/ozzo-validation"
+	"github.com/go-ozzo/ozzo-validation/is"
+)
 
 type MutationCreateAccountVariables struct {
 	id string `json:"id"`
@@ -15,8 +18,10 @@ type MutationCreateAccountResponse struct {
 
 func (m MutationCreateAccountResponse) Validate() error {
 	return validation.ValidateStruct(&m,
-		validation.Field(&m.Id, validation.Required))
-	// TODO: Rest
+		validation.Field(&m.Id, validation.Required),
+		validation.Field(&m.UserName, validation.Required),
+		validation.Field(&m.Email, validation.Required, is.Email),
+		validation.Field(&m.CreatedAt, validation.Required))
 }
 
 const MutationCreateAccountName = "insert_accounts"

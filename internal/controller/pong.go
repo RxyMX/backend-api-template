@@ -19,7 +19,8 @@ func pong(request PingRequest) *PingResponse {
 			response.Message = config.PongOverrideMessage
 		}
 	} else {
-		middleware.PanicClientError(fasthttp.StatusNotFound,
+		middleware.PanicClientErrorWithMessage(fasthttp.StatusNotFound,
+			disabledMessage,
 			errors.New(disabledMessage))
 	}
 

@@ -3,7 +3,7 @@ package controller
 import validation "github.com/go-ozzo/ozzo-validation"
 
 type PingRequest struct {
-	Message string `json:"message"`
+	Message string `json:"message,omitempty"`
 }
 
 type PingResponse struct {
