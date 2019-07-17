@@ -1,1 +1,1 @@
-git config core.hooksPath .githooks
+cp .githooks/* .git/hooks
