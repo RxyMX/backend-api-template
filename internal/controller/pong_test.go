@@ -17,6 +17,7 @@ func Test_Pong(t *testing.T) {
 		pongOverrideMessage string
 	}{
 		{
+			Name:        "Pong disabled test",
 			pongEnabled: false,
 			request: PingRequest{
 				Message: "hi",
@@ -24,6 +25,7 @@ func Test_Pong(t *testing.T) {
 			response: `pong is currently on vacation and cannot be found`,
 		},
 		{
+			Name:        "Ping/Pong successful test",
 			pongEnabled: true,
 			request: PingRequest{
 				Message: "hi",
@@ -33,6 +35,7 @@ func Test_Pong(t *testing.T) {
 			},
 		},
 		{
+			Name:                "Ping/Pong override message test",
 			pongEnabled:         true,
 			pongOverrideMessage: "coop was here",
 			request: PingRequest{
@@ -49,16 +52,18 @@ func Test_Pong(t *testing.T) {
 			config.PongEnabled = test.pongEnabled
 			config.PongOverrideMessage = test.pongOverrideMessage
 
-			defer func() {
-				if r := recover(); r == nil {
-					t.Errorf("The code failed to panic on test %+v", test)
-				} else if httpError, ok := r.(middleware.ClientHttpError); ok {
-					assert.Equal(t, fasthttp.StatusNotFound, httpError.StatuCode)
-					assert.Equal(t, test.response, httpError.Message)
-				} else {
-					t.Error("Panic is not a client HttpClientError or ValidationError!")
-				}
-			}()
+			if test.pongEnabled == false {
+				defer func() {
+					if r := recover(); r == nil {
+						t.Errorf("The code failed to panic on test %+v", test)
+					} else if httpError, ok := r.(middleware.ClientHttpError); ok {
+						assert.Equal(t, fasthttp.StatusNotFound, httpError.StatuCode)
+						assert.Equal(t, test.response, httpError.Message)
+					} else {
+						t.Error("Panic is not a client HttpClientError or ValidationError!")
+					}
+				}()
+			}
 
 			response := pong(test.request)
 			assert.Equal(t, test.response, response)
