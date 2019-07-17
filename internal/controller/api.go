@@ -14,3 +14,10 @@ func (p PingRequest) Validate() error {
 	return validation.ValidateStruct(&p,
 		validation.Field(&p.Message, validation.Required, validation.NilOrNotEmpty))
 }
+
+type CreateAccountRespone struct {
+	Id        string `json:"id"`
+	UserName  string `json:"username"`
+	Email     string `json"email"`
+	CreatedAt string `json:"createdAt"`
+}

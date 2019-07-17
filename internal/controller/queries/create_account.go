@@ -1,6 +1,7 @@
 package queries
 
 import (
+	"common-go-example/internal/controller"
 	"github.com/go-ozzo/ozzo-validation"
 	"github.com/go-ozzo/ozzo-validation/is"
 )
@@ -24,8 +25,17 @@ func (m MutationCreateAccountResponse) Validate() error {
 		validation.Field(&m.CreatedAt, validation.Required))
 }
 
+func (m MutationCreateAccountResponse) ToCreateAccountResponse() *controller.CreateAccountRespone {
+	return &controller.CreateAccountRespone{
+		Id:        m.Id,
+		UserName:  m.UserName,
+		Email:     m.Email,
+		CreatedAt: m.CreatedAt,
+	}
+}
+
 const MutationCreateAccountName = "insert_accounts"
-const MutationCreateAccountQuery = `
+const MutationCreateAccount = `
 mutation($id: uuid){
     insert_accounts(
         where: { id: { _eq: $id } }

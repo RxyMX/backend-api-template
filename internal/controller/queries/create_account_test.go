@@ -7,7 +7,7 @@ import (
 )
 
 func TestMutationCreateAccountQuery(t *testing.T) {
-	queries, err := ToGraphqlQuery([]byte(MutationCreateAccountQuery))
+	queries, err := ToGraphqlQuery([]byte(MutationCreateAccount))
 
 	if err != nil {
 		t.Error(err)

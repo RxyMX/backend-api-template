@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 GOROOT=/usr/local/go #gosetup
+go fmt
 go test ./... #gosetup
 
 if [ $? -ne 0 ]; then
