@@ -257,6 +257,7 @@ to this document by adding yourself to the Team section below of this readme. Su
 ## Team
 
 * ${full-name} - ${email} | ${github-alias}
+* Roman Z. - roman@kintohub.com | ronanamsterdam
 * Joseph Cooper - joseph@kintohub.com | disturbing
 
 ## Misc Technologies
