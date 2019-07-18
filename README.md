@@ -76,7 +76,7 @@ The reason why we are doing this is to avoid returning error objects in everythi
 This is similar to exceptions in Java/DotNet and general error middleware in NodeJs.
 
 * We currently use (4) spaces for tabs
-* All go error.New("messages should be 100% loweracase)
+* All go error.New("messages should be 100% lowercase")
 * go fmt on pre-commit and general style guide.
 * We use int not int64,32,etc unless special case required
 * Goland go PROXY is setup as `direct`
@@ -185,7 +185,7 @@ This file should not change for any project.
 
 ## Environment Variables
 
-All env vars ar put int `internal/config/config.go`. Every project **MUST** have a .env-example up to date
+All env vars are put into `internal/config/config.go`. Every project **MUST** have a .env-example up to date
 
 Copy the `.env-example` to be `.env` to have it run in Goland / local testing. This file is in `.gitignore`
 
@@ -259,6 +259,7 @@ to this document by adding yourself to the Team section below of this readme. Su
 * ${full-name} - ${email} | ${github-alias}
 * Roman Z. - roman@kintohub.com | ronanamsterdam
 * Joseph Cooper - joseph@kintohub.com | disturbing
+* Laura Ambrose - laura@kintohub.com | lambro
 
 ## Misc Technologies
 
