@@ -29,7 +29,7 @@ When creating a project run `./setup_git` upon creation
 
 ## Creating a new project
 
-1) Click on create template of this repostiory
+1) Click on `use this template` of this repostiory
 2) `git clone {repo}` in your workspace directory of choice
 3) `./setup_git` in the root of the project
 4) Rename the `/cmd/common-go-example` folder to `/cmd/{repo-name}`
@@ -74,19 +74,44 @@ errors.
 The reason why we are doing this is to avoid returning error objects in everything and writing if err != nil then...
 100 times in a single project :). Simply call a function and it will not continue to execute if something went wrong.
 This is similar to exceptions in Java/DotNet and general error middleware in NodeJs.
+(inspired by [Koa middleware](https://github.com/koajs/koa/blob/master/docs/error-handling.md))
 
-* We currently use (4) spaces for tabs
+* We currently use tabs for indentation (following the [official guide](https://golang.org/doc/effective_go.html#formatting))
 * All go error.New("messages should be 100% lowercase")
 * go fmt on pre-commit and general style guide.
 * We use int not int64,32,etc unless special case required
 * Goland go PROXY is setup as `direct`
 * TODO: More details one day here :)
 
+### Naming Convention
+In order to prepare for the future code linting and static code analysis, please follow the convention. 
+* Variable name: Use `installationID`/`someURL` instead of `InstallationId`/`someUrl` ([official guide](https://github.com/golang/go/wiki/CodeReviewComments#initialisms))
+
+Potential tools: 
+* [golint](https://github.com/golang/lint)
+  * Usage: `golint ./...`
+* [go vet](https://golang.org/cmd/vet/)
+  * Usage: `go vet ./...`
+
+
 ### Local Debugging and Dev
 
 We are working on CLI tools to make it easier to debug in the cloud. But when you want to make changes
 to commons-go, use go 1.12 feature of `replace {package} => {local/path/to/your/package}` for local testing
 before pushing changes to commons-go.
+
+Example (go.mod)
+```
+module github.com/kintohub/githubapp-go
+
+go 1.12
+
+require (
+	github.com/kintohub/common-go v0.0.1-dev-a3f12bb
+)
+
+replace github.com/kintohub/common-go v0.0.1-dev-a3f12bb => ~/local/common-go
+```
 
 ### Json Format
 
@@ -127,7 +152,22 @@ To do simple errors such as not implemented, simply do `panic("message in all lo
 All client errors are handled by `json.PanicClientBytesToStruct` or `json.PanicValidateClientBytesToStruct`.
 
 If you have a custom client error due to some sort of validation or edge case, use `middleware.PanicClientError`
-
+You should also use `errors.Wrap` to add additional information
+```go
+func GetDataFromDB() error {
+	return errors.New("connection failed")
+}
+ 
+func FetchUsers() error {
+  err := GetDataFromDB()
+  if err != nil {
+    middleware.PanicClientError(
+      fasthttp.StatusInternalServerError,
+      errors.Wrap(err, "getting data from db"),
+    )
+	}	
+}
+```
 
 ### Hasura Errors
 
@@ -168,7 +208,7 @@ Non critical information includes:
 * Build X status has updated To Step 1/1000
 
 Overall rule of thumb is if the log is going to be called > 10 times per user in a single minute, do not log it as 
-`logger.Debug` consider logging it as `logger.Debug`
+`logger.Info` consider logging it as `logger.Debug`
 
 
 ## Main
@@ -249,6 +289,10 @@ A file called `models.go` inside of queries can contain common database models
 
 @Edward to define
 
+Official tool is provided, similar to APIDoc in JS. 
+
+https://blog.golang.org/godoc-documenting-go-code
+
 ## Onboarding
 
 If you have gotten to this point, you have successfully read the docs. To prove that you read all of this, create a PR
@@ -259,6 +303,7 @@ to this document by adding yourself to the Team section below of this readme. Su
 * ${full-name} - ${email} | ${github-alias}
 * Roman Z. - roman@kintohub.com | ronanamsterdam
 * Joseph Cooper - joseph@kintohub.com | disturbing
+* Edward Yu - edward@kintohub.com | edwardkcyu
 * Laura Ambrose - laura@kintohub.com | lambro
 
 ## Misc Technologies
@@ -271,3 +316,9 @@ to this document by adding yourself to the Team section below of this readme. Su
 ### Misc Todo list
 
 *[ ] Refactor HTTP Client / Requests to use channels versus ResponseHandler function
+
+*[ ] Linter
+
+*[ ] Static code analyzer
+
+*[ ] Automatic documentation
