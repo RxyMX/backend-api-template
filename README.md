@@ -159,13 +159,13 @@ func GetDataFromDB() error {
 }
  
 func FetchUsers() error {
-  err := GetDataFromDB()
-  if err != nil {
-    middleware.PanicClientError(
-      fasthttp.StatusInternalServerError,
-      errors.Wrap(err, "getting data from db"),
-    )
-	}	
+    err := GetDataFromDB()
+    if err != nil {
+        middleware.PanicClientError(
+            fasthttp.StatusInternalServerError,
+            errors.Wrap(err, "getting data from db"),
+        )
+	}
 }
 ```
 
@@ -234,6 +234,7 @@ KintoHub default env vars are as follows:
 * KINTO_LOG_LEVEL=DEBUG || INFO || WARNING || ERROR || FATAL
 * SERVER_PORT=8081
 * HASURA_HOST=localhost:8080/v1/graphql
+* HASURA_ADMIN_SECRET= // keep empty if hasura is not set with admin secret 
 
 Rule of thumb for environment variables is that they should be static information that is used in the project.
 
@@ -305,6 +306,7 @@ to this document by adding yourself to the Team section below of this readme. Su
 * Joseph Cooper - joseph@kintohub.com | disturbing
 * Edward Yu - edward@kintohub.com | edwardkcyu
 * Laura Ambrose - laura@kintohub.com | lambro
+* Nandi Wong - nandi@kintohub.com | nandiheath
 
 ## Misc Technologies
 
@@ -322,3 +324,5 @@ to this document by adding yourself to the Team section below of this readme. Su
 *[ ] Static code analyzer
 
 *[ ] Automatic documentation
+
+*[ ] Json logger for logging metrics 
