@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"github.com/kintohub/common-go/server/middleware"
-	"github.com/kintohub/common-go/utils/json"
-	"github.com/stretchr/testify/assert"
+	"github.com/kintohub/common-go/utils/testutils"
 	"github.com/valyala/fasthttp"
 	"testing"
 )
@@ -12,20 +10,24 @@ func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
 	controller := NewCommonGoExampleController(nil, nil)
 
 	tests := []struct {
-		requestJson string
-		errorMsg    string
+		requestJson    string
+		errorMsg       string
+		panicErrorType int
 	}{
 		{
-			requestJson: ``,
-			errorMsg:    "unexpected end of JSON input",
+			requestJson:    ``,
+			errorMsg:       "unexpected end of JSON input",
+			panicErrorType: testutils.CLIENT_HTTP_ERROR_TYPE,
 		},
 		{
-			requestJson: `"bad""json"`,
-			errorMsg:    "invalid character '\"' after top-level value",
+			requestJson:    `"bad""json"`,
+			errorMsg:       "invalid character '\"' after top-level value",
+			panicErrorType: testutils.CLIENT_HTTP_ERROR_TYPE,
 		},
 		{
-			requestJson: `{"message":""}`,
-			errorMsg:    `{"errors":{"error":"message: cannot be blank.","fields":{"message":"cannot be blank"}}}`,
+			requestJson:    `{"message":""}`,
+			errorMsg:       `{"errors":{"error":"message: cannot be blank.","fields":{"message":"cannot be blank"}}}`,
+			panicErrorType: testutils.VALIDATION_ERROR_TYPE,
 		},
 	}
 
@@ -35,20 +37,18 @@ func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
 		t.Run(test.requestJson, func(t *testing.T) {
 			//TODO: I think this can be moved to a utility class for common error testing.
 			defer func() {
-				if r := recover(); r == nil {
-					t.Errorf("The code failed to panic on test %+v", test)
-				} else if httpError, ok := r.(middleware.ClientHttpError); ok {
-					assert.Equal(t, fasthttp.StatusBadRequest, httpError.StatuCode)
-					assert.Equal(t, test.errorMsg, httpError.Message)
-				} else if validationError, ok := r.(middleware.ValidationError); ok {
-					assert.Equal(t, fasthttp.StatusBadRequest, validationError.StatuCode)
-					assert.Equal(t, test.errorMsg, json.JsonStructToJsonString(validationError.Body()))
-				} else {
-					t.Error("Panic is not a client HttpClientError or ValidationError!")
-				}
+				testutils.AssertPanicError(t,
+					recover(),
+					fasthttp.StatusBadRequest,
+					test.errorMsg,
+					test.panicErrorType)
 			}()
 
 			controller.Ping(&ctx)
 		})
 	}
+}
+
+func TestExampleSkipingTest(t *testing.T) {
+	t.Skip("This is simply here to show that you should not comment tests, but skip them if you want to disable")
 }

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"common-go-example/internal/config"
-	"errors"
 	"github.com/kintohub/common-go/server/middleware"
 	"github.com/valyala/fasthttp"
 )
@@ -19,9 +18,7 @@ func pong(request PingRequest) *PingResponse {
 			response.Message = config.PongOverrideMessage
 		}
 	} else {
-		middleware.PanicClientErrorWithMessage(fasthttp.StatusNotFound,
-			disabledMessage,
-			errors.New(disabledMessage))
+		middleware.PanicClientErrorWithMessage(fasthttp.StatusNotFound, disabledMessage)
 	}
 
 	return &response

@@ -231,7 +231,7 @@ Copy the `.env-example` to be `.env` to have it run in Goland / local testing. T
 
 KintoHub default env vars are as follows:
 
-* KINTO_LOG_LEVEL=DEBUG || INFO || WARNING || ERROR || FATAL
+* KINTO_LOG_LEVEL=debug || info || warning || error || panic || trace
 * SERVER_PORT=8081
 * HASURA_HOST=localhost:8080/v1/graphql
 * HASURA_ADMIN_SECRET= // keep empty if hasura is not set with admin secret 

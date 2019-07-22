@@ -35,7 +35,7 @@ func NewCommonGoExampleController(httpClient client.HttpClientWrapper,
 
 func (c *CommonGoExampleController) Ping(ctx *fasthttp.RequestCtx) {
 	request := PingRequest{}
-	json.JsonValidateClientBytesToStruct(ctx.PostBody(), &request)
+	json.PanicValidateClientBytesToStruct(ctx.PostBody(), &request)
 	response := pong(request)
 	fasthttputils.WriteJsonResponse(ctx, fasthttp.StatusOK, response)
 }
