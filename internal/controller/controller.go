@@ -10,12 +10,12 @@ import (
 )
 
 type CommonGoExampleController struct {
-	httpClient client.HttpClientWrapper
-	graphqlApi kintohub.GraphqlApi
+	httpClient client.IHttpClient
+	graphqlApi kintohub.IGraphqlApi
 }
 
-func NewCommonGoExampleController(httpClient client.HttpClientWrapper,
-	graphqlApi kintohub.GraphqlApi) *CommonGoExampleController {
+func NewCommonGoExampleController(httpClient client.IHttpClient,
+	graphqlApi kintohub.IGraphqlApi) *CommonGoExampleController {
 
 	if httpClient == nil {
 		httpClient = client.NewHttpClientCaller(nil)

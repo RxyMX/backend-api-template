@@ -7,19 +7,19 @@ import (
 )
 
 type MutationCreateAccountVariables struct {
-	id string `json:"id"`
+	ID string `json:"id"`
 }
 
 type MutationCreateAccountResponse struct {
-	Id        string `json:"id"`
-	UserName  string `json"username"`
-	Email     string `json"email"`
+	ID        string `json:"id"`
+	UserName  string `json:"username"`
+	Email     string `json:"email"`
 	CreatedAt string `json:"created_at"`
 }
 
 func (m MutationCreateAccountResponse) Validate() error {
 	return validation.ValidateStruct(&m,
-		validation.Field(&m.Id, validation.Required),
+		validation.Field(&m.ID, validation.Required),
 		validation.Field(&m.UserName, validation.Required),
 		validation.Field(&m.Email, validation.Required, is.Email),
 		validation.Field(&m.CreatedAt, validation.Required))
@@ -27,7 +27,7 @@ func (m MutationCreateAccountResponse) Validate() error {
 
 func (m MutationCreateAccountResponse) ToCreateAccountResponse() *controller.CreateAccountRespone {
 	return &controller.CreateAccountRespone{
-		Id:        m.Id,
+		ID:        m.ID,
 		UserName:  m.UserName,
 		Email:     m.Email,
 		CreatedAt: m.CreatedAt,

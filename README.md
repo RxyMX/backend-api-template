@@ -93,6 +93,8 @@ Potential tools:
 * [go vet](https://golang.org/cmd/vet/)
   * Usage: `go vet ./...`
 
+#### Interface names
+As go has no concrete and scalable standard on interface names we decided to got with `I<InterfaceName>` standard
 
 ### Local Debugging and Dev
 

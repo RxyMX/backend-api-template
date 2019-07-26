@@ -16,8 +16,8 @@ func (p PingRequest) Validate() error {
 }
 
 type CreateAccountRespone struct {
-	Id        string `json:"id"`
+	ID        string `json:"id"`
 	UserName  string `json:"username"`
-	Email     string `json"email"`
+	Email     string `json:"email"`
 	CreatedAt string `json:"createdAt"`
 }

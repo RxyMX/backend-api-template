@@ -8,7 +8,7 @@ require (
 	github.com/go-ozzo/ozzo-validation v3.5.0+incompatible
 	github.com/graphql-go/graphql v0.7.8
 	github.com/joho/godotenv v1.3.0
-	github.com/kintohub/common-go v0.1.0
+	github.com/kintohub/common-go v0.1.3
 	github.com/stretchr/testify v1.3.0
 	github.com/valyala/fasthttp v1.2.0
 )
