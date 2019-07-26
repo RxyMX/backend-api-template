@@ -47,6 +47,8 @@ func Test_Pong(t *testing.T) {
 		},
 	}
 
+	c := New(nil, nil)
+
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {
 			config.PongEnabled = test.pongEnabled
@@ -62,7 +64,7 @@ func Test_Pong(t *testing.T) {
 				}()
 			}
 
-			response := pong(test.request)
+			response := c.pong(test.request)
 			assert.Equal(t, test.response, response)
 		})
 	}

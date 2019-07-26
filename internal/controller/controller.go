@@ -9,13 +9,13 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-type CommonGoExampleController struct {
+type Controller struct {
 	httpClient client.IHttpClient
 	graphqlApi kintohub.IGraphqlApi
 }
 
-func NewCommonGoExampleController(httpClient client.IHttpClient,
-	graphqlApi kintohub.IGraphqlApi) *CommonGoExampleController {
+func New(httpClient client.IHttpClient,
+	graphqlApi kintohub.IGraphqlApi) *Controller {
 
 	if httpClient == nil {
 		httpClient = client.NewHttpClientCaller(nil)
@@ -27,15 +27,16 @@ func NewCommonGoExampleController(httpClient client.IHttpClient,
 		)
 	}
 
-	return &CommonGoExampleController{
+	return &Controller{
 		httpClient: httpClient,
 		graphqlApi: graphqlApi,
 	}
 }
 
-func (c *CommonGoExampleController) Ping(ctx *fasthttp.RequestCtx) {
+func (c *Controller) Ping(ctx *fasthttp.RequestCtx) {
 	request := PingRequest{}
 	json.PanicValidateClientBytesToStruct(ctx.PostBody(), &request)
-	response := pong(request)
-	fasthttputils.WriteJsonResponse(ctx, fasthttp.StatusOK, response)
+	response := c.pong(request)
+
+  fasthttputils.WriteJsonResponse(ctx, fasthttp.StatusOK, response)
 }

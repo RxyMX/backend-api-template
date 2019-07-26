@@ -7,7 +7,7 @@ import (
 )
 
 func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
-	controller := NewCommonGoExampleController(nil, nil)
+	controller := New(nil, nil)
 
 	tests := []struct {
 		requestJson    string

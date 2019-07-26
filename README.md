@@ -83,6 +83,8 @@ This is similar to exceptions in Java/DotNet and general error middleware in Nod
 * Goland go PROXY is setup as `direct`
 * TODO: More details one day here :)
 
+**Always run `go vet ./...` to prevent common styling mistakes!**
+
 ### Naming Convention
 In order to prepare for the future code linting and static code analysis, please follow the convention. 
 * Variable name: Use `installationID`/`someURL` instead of `InstallationId`/`someUrl` ([official guide](https://github.com/golang/go/wiki/CodeReviewComments#initialisms))
@@ -256,6 +258,10 @@ Controller is responsible for the following in order:
 2) Pass the request struct to a api handler function in the controller package (see ping.go)
 3) Receive the response
 4) Write the response to the context.
+
+**KEEP CONTROLLERS CLEAN WITHOUT EXTRA LOGIC.** controllers should contain only high level method calls 
+and request processing flow *MUST* be obvious and easy readable. Abstract all the extra logic in to helper
+methods per controller.  
 
 ### Headers
 
