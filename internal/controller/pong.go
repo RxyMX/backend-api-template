@@ -12,7 +12,7 @@ func (c *Controller) pong(request PingRequest) *PingResponse {
 	*  3. for example store new values -> call helper method
 	*  ...
 	*  N. update DB -> call helper
-	*/
+	 */
 
 	return &response
 }
