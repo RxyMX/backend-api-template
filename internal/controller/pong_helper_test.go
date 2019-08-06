@@ -27,7 +27,6 @@ func Test_ProcessPong(t *testing.T) {
 			pongEnabled:     true,
 			Message:         "hi",
 			ResponseMessage: "hi",
-
 		},
 		{
 			Name:                "panicProcessPong ping/pong override message test",

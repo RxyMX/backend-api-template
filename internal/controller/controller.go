@@ -38,5 +38,5 @@ func (c *Controller) Ping(ctx *fasthttp.RequestCtx) {
 	json.PanicValidateClientBytesToStruct(ctx.PostBody(), &request)
 	response := c.pong(request)
 
-  fasthttputils.WriteJsonResponse(ctx, fasthttp.StatusOK, response)
+	fasthttputils.WriteJsonResponse(ctx, fasthttp.StatusOK, response)
 }

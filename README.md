@@ -214,6 +214,9 @@ Non critical information includes:
 Overall rule of thumb is if the log is going to be called > 10 times per user in a single minute, do not log it as 
 `logger.Info` consider logging it as `logger.Debug`
 
+## Docker file
+For deployment use provided in the template dockerfile and change `./cmd/<your-project-name>/main.go` to 
+corresponding to your project's name.  
 
 ## Main
 
