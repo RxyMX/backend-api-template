@@ -22,6 +22,10 @@ RUN rm -f ~/.gitconfig
 # multi-stage build to reduce final image size
 FROM alpine:3.9.3
 
+# need this line to fix the error
+# Post https://some/ssl/ednpoint: x509: certificate signed by unknown authority
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+
 WORKDIR /app
 
 COPY --from=builder /app/main main
