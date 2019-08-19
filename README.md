@@ -117,6 +117,15 @@ require (
 replace github.com/kintohub/common-go v0.0.1-dev-a3f12bb => ~/local/common-go
 ```
 
+You can also specify the version by using the branch name or commit hash 
+```bash
+# by branch name
+go get -u github.com/kintohub/common-go@your-awesome-branch 
+
+# by commit hash
+go get -u github.com/kintohub/common-go@dd23030872e082c94c0dd6be537c0ebf902a32ce
+```
+
 ### Json Format
 
 Hasura docs and standard is following PostgresDb with column names in underscore format `created_at`.
