@@ -306,6 +306,10 @@ In a query file, will have:
 
 A file called `models.go` inside of queries can contain common database models
 
+## PR title commit format
+       
+   `<✨|🐛\🚨|♻️><feat|bug|refac>(JIRA-TICKET-NUMBER-IN-CAPS): <short description>`
+
 ## Documentation
 
 @Edward to define
