@@ -1,7 +1,8 @@
-package controller
+package server
 
 import (
 	"common-go-example/internal/config"
+	"common-go-example/internal/model"
 	"errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
@@ -9,7 +10,7 @@ import (
 )
 
 func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
-	controller := New()
+	controller := newController()
 	tests := []struct {
 		requestJson string
 		errorMsg    string
@@ -36,7 +37,7 @@ func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
 		ctx := fasthttp.RequestCtx{}
 		ctx.Request.SetBody([]byte(test.requestJson))
 		t.Run(test.requestJson, func(t *testing.T) {
-			controller.Ping(&ctx)
+			controller.ping(&ctx)
 
 			assert.Equal(t, ctx.Response.StatusCode(), test.statusCode)
 			assert.Equal(t, test.errorMsg, string(ctx.Response.Body()))
@@ -47,7 +48,7 @@ func TestCommonGoExampleController_Ping_FailCases(t *testing.T) {
 func Test_Pong(t *testing.T) {
 	tests := []struct {
 		Name                string
-		request             PingRequest
+		request             model.PingRequest
 		response            interface{}
 		pongEnabled         bool
 		pongOverrideMessage string
@@ -56,7 +57,7 @@ func Test_Pong(t *testing.T) {
 		{
 			Name:        "Pong disabled test",
 			pongEnabled: false,
-			request: PingRequest{
+			request: model.PingRequest{
 				Message: "hi",
 			},
 			err: errors.New("pong is currently on vacation and cannot be found"),
@@ -64,10 +65,10 @@ func Test_Pong(t *testing.T) {
 		{
 			Name:        "Ping/Pong successful test",
 			pongEnabled: true,
-			request: PingRequest{
+			request: model.PingRequest{
 				Message: "hi",
 			},
-			response: &PingResponse{
+			response: &model.PingResponse{
 				Message: "hi",
 			},
 		},
@@ -75,10 +76,10 @@ func Test_Pong(t *testing.T) {
 			Name:                "Ping/Pong override message test",
 			pongEnabled:         true,
 			pongOverrideMessage: "coop was here",
-			request: PingRequest{
+			request: model.PingRequest{
 				Message: "hi",
 			},
-			response: &PingResponse{
+			response: &model.PingResponse{
 				Message: "coop was here",
 			},
 		},

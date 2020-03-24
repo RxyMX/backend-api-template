@@ -1,7 +1,8 @@
-package controller
+package server
 
 import (
 	"common-go-example/internal/config"
+	"common-go-example/internal/model"
 	"common-go-example/internal/utils"
 	"encoding/json"
 	"errors"
@@ -12,18 +13,18 @@ import (
 type Controller struct {
 }
 
-func New() Controller {
+func newController() Controller {
 	return Controller{}
 }
 
-func (c *Controller) Ping(ctx *fasthttp.RequestCtx) {
-	request := PingRequest{}
+func (c *Controller) ping(ctx *fasthttp.RequestCtx) {
+	request := model.PingRequest{}
 
 	err := utils.UnmarshalAndValidate(ctx.PostBody(), &request)
 
 	if err != nil {
 		logger.Debugf("Invalid ping request received %v", string(ctx.Request.Body()))
-		utils.WriteErrorObject(ctx, err, fasthttp.StatusBadRequest)
+		writeErrorObject(ctx, err, fasthttp.StatusBadRequest)
 		return
 	}
 
@@ -35,12 +36,12 @@ func (c *Controller) Ping(ctx *fasthttp.RequestCtx) {
 		respData, _ := json.Marshal(response)
 		ctx.Response.SetBody(respData)
 	} else {
-		utils.WriteErrorMessage(ctx, err.Error(), fasthttp.StatusNotFound)
+		writeErrorMessage(ctx, err.Error(), fasthttp.StatusNotFound)
 	}
 }
 
-func pong(request PingRequest) (*PingResponse, error) {
-	response := PingResponse{}
+func pong(request model.PingRequest) (*model.PingResponse, error) {
+	response := model.PingResponse{}
 
 	const disabledMessage = "pong is currently on vacation and cannot be found"
 
