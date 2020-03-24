@@ -1,11 +1,10 @@
 package server
 
 import (
-	"common-go-example/internal/config"
 	"common-go-example/internal/model"
+	"common-go-example/internal/store"
 	"common-go-example/internal/utils"
 	"encoding/json"
-	"errors"
 	"github.com/kintohub/utils-go/logger"
 	"github.com/valyala/fasthttp"
 )
@@ -29,7 +28,7 @@ func (c *Controller) ping(ctx *fasthttp.RequestCtx) {
 	}
 
 	logger.Debugf("Processing ping request %v", request)
-	response, err := pong(request)
+	response, err := store.Pong(request)
 
 	if err == nil {
 		logger.Debugf("Successful ping response %v", response)
@@ -38,22 +37,4 @@ func (c *Controller) ping(ctx *fasthttp.RequestCtx) {
 	} else {
 		writeErrorMessage(ctx, err.Error(), fasthttp.StatusNotFound)
 	}
-}
-
-func pong(request model.PingRequest) (*model.PingResponse, error) {
-	response := model.PingResponse{}
-
-	const disabledMessage = "pong is currently on vacation and cannot be found"
-
-	if config.PongEnabled {
-		if config.PongOverrideMessage == "" {
-			response.Message = request.Message
-		} else {
-			response.Message = config.PongOverrideMessage
-		}
-	} else {
-		return nil, errors.New(disabledMessage)
-	}
-
-	return &response, nil
 }

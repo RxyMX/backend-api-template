@@ -8,5 +8,5 @@ import (
 
 func main() {
 	logger.SetLogLevel(config.LogLevel)
-	server.Start()
+	server.Start(config.ServerPort)
 }

@@ -7,9 +7,9 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func Start() {
+func Start(port string) {
 	r := newRouter()
-	logger.Infof("Starting server on port %v", config.ServerPort)
+	logger.Infof("Starting server on port %v", port)
 	logger.Errorf("Fasthttp server crashed %v",
 		fasthttp.ListenAndServe(":"+config.ServerPort, r.Handler))
 }
