@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	LogLevel            = utils.Get("KINTO_LOG_LEVEL", "info")
+	LogLevel            = utils.Get("LOG_LEVEL", "info")
 	ServerPort          = utils.Get("SERVER_PORT", "8080")
 	PongOverrideMessage = utils.Get("PONG_OVERRIDE_MESSAGE", "")
 	PongEnabled         bool
