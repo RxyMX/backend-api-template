@@ -6,7 +6,7 @@ import (
 )
 
 func New() *fasthttprouter.Router {
-	c := controller.New(nil, nil)
+	c := controller.New()
 	router := fasthttprouter.New()
 
 	router.Handle("POST", "/ping", c.Ping)

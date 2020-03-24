@@ -1,4 +1,4 @@
-# KintoHub Go Template
+# KintoHub Backend Api Template
 
 This is the standard format of how the Kinto Goons Engineering team will collaborating in making awesome go applications.
 
@@ -29,7 +29,7 @@ When creating a project run `./setup_git` upon creation
 
 ## Creating a new project
 
-1) Click on `use this template` of this repostiory
+1) Click on `use this template` of this repository
 2) `git clone {repo}` in your workspace directory of choice
 3) `./setup_git` in the root of the project
 4) Rename the `/cmd/common-go-example` folder to `/cmd/{repo-name}`
@@ -64,24 +64,14 @@ sends request struct to a functon to process.
 
 ### Style & Settings
 
-We decided to build middleware for error handling.  When an error occurs, we panic the code to be caught
-and written to the response. There are several utilities that automatically do this for us that start with
-the function name of Panic such as `middelware.PanicClientErrorWithMessage`.
-
-You should never do a raw panic yourself, always use the `middleware.Panic....` functions including internal
-errors.
-
-The reason why we are doing this is to avoid returning error objects in everything and writing if err != nil then...
-100 times in a single project :). Simply call a function and it will not continue to execute if something went wrong.
-This is similar to exceptions in Java/DotNet and general error middleware in NodeJs.
-(inspired by [Koa middleware](https://github.com/koajs/koa/blob/master/docs/error-handling.md))
+March 2020 we have removed middleware error handling and will use standard error handling.
+There is a /internal/utils to help you with this for fasthttp.
 
 * We currently use tabs for indentation (following the [official guide](https://golang.org/doc/effective_go.html#formatting))
 * All go error.New("messages should be 100% lowercase")
 * go fmt on pre-commit and general style guide.
 * We use int not int64,32,etc unless special case required
 * Goland go PROXY is setup as `direct`
-* TODO: More details one day here :)
 
 **Always run `go vet ./...` to prevent common styling mistakes!**
 
@@ -249,8 +239,6 @@ KintoHub default env vars are as follows:
 
 * KINTO_LOG_LEVEL=debug || info || warning || error || panic || trace
 * SERVER_PORT=8081
-* HASURA_HOST=localhost:8080/v1/graphql
-* HASURA_ADMIN_SECRET= // keep empty if hasura is not set with admin secret 
 
 Rule of thumb for environment variables is that they should be static information that is used in the project.
 
@@ -312,9 +300,7 @@ A file called `models.go` inside of queries can contain common database models
 
 ## Documentation
 
-@Edward to define
-
-Official tool is provided, similar to APIDoc in JS. 
+Official tool is provided, similar to APIDoc in JS.
 
 https://blog.golang.org/godoc-documenting-go-code
 
@@ -337,7 +323,6 @@ to this document by adding yourself to the Team section below of this readme. Su
 * Goland
 * Ozzovalidation
 * Fasthttp
-
 
 ### Misc Todo list
 

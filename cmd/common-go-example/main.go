@@ -1,12 +1,16 @@
 package main
 
 import (
+	"common-go-example/internal/config"
 	"common-go-example/internal/router"
-	_ "github.com/joho/godotenv/autoload"
-	"github.com/kintohub/common-go/server"
+	"github.com/kintohub/utils-go/logger"
+	"github.com/valyala/fasthttp"
 )
 
 func main() {
 	r := router.New()
-	server.NewServer(r).Start()
+	logger.SetLogLevel(config.LogLevel)
+	logger.Infof("Successfully started server listening to port %v", config.ServerPort)
+	logger.Errorf("Fasthttp server crashed %v",
+		fasthttp.ListenAndServe(":"+config.ServerPort, r.Handler))
 }

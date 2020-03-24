@@ -1,4 +1,4 @@
-FROM golang:1.12.3 as builder
+FROM golang:1.13 as builder
 
 ARG GIT_USER
 ARG GIT_TOKEN

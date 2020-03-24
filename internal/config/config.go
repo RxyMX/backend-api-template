@@ -1,17 +1,19 @@
 package config
 
 import (
-	"github.com/kintohub/common-go/utils/env"
+	"github.com/kintohub/utils-go/utils"
 	"strconv"
 )
 
 var (
-	PongOverrideMessage = env.Get("PONG_OVERRIDE_MESSAGE", "")
+	LogLevel            = utils.Get("KINTO_LOG_LEVEL", "info")
+	ServerPort          = utils.Get("SERVER_PORT", "8080")
+	PongOverrideMessage = utils.Get("PONG_OVERRIDE_MESSAGE", "")
 	PongEnabled         bool
 )
 
 func init() {
-	enabled, err := strconv.ParseBool(env.Get("PONG_ENABLED", "false"))
+	enabled, err := strconv.ParseBool(utils.Get("PONG_ENABLED", "false"))
 
 	if err == nil {
 		PongEnabled = enabled
