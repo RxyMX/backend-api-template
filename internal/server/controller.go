@@ -2,7 +2,7 @@ package server
 
 import (
 	"common-go-example/internal/model"
-	"common-go-example/internal/store"
+	"common-go-example/internal/types"
 	"common-go-example/internal/utils"
 	"encoding/json"
 	"github.com/kintohub/utils-go/logger"
@@ -17,7 +17,7 @@ func newController() Controller {
 }
 
 func (c *Controller) ping(ctx *fasthttp.RequestCtx) {
-	request := model.PingRequest{}
+	request := types.PingRequest{}
 
 	err := utils.UnmarshalAndValidate(ctx.PostBody(), &request)
 
@@ -28,7 +28,7 @@ func (c *Controller) ping(ctx *fasthttp.RequestCtx) {
 	}
 
 	logger.Debugf("Processing ping request %v", request)
-	response, err := store.Pong(request)
+	response, err := model.Pong(request)
 
 	if err == nil {
 		logger.Debugf("Successful ping response %v", response)

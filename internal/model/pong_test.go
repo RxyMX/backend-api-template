@@ -1,8 +1,8 @@
-package store
+package model
 
 import (
 	"common-go-example/internal/config"
-	"common-go-example/internal/model"
+	"common-go-example/internal/types"
 	"errors"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -11,7 +11,7 @@ import (
 func Test_Pong(t *testing.T) {
 	tests := []struct {
 		Name                string
-		request             model.PingRequest
+		request             types.PingRequest
 		response            interface{}
 		pongEnabled         bool
 		pongOverrideMessage string
@@ -20,7 +20,7 @@ func Test_Pong(t *testing.T) {
 		{
 			Name:        "Pong disabled test",
 			pongEnabled: false,
-			request: model.PingRequest{
+			request: types.PingRequest{
 				Message: "hi",
 			},
 			err: errors.New("pong is currently on vacation and cannot be found"),
@@ -28,10 +28,10 @@ func Test_Pong(t *testing.T) {
 		{
 			Name:        "Ping/Pong successful test",
 			pongEnabled: true,
-			request: model.PingRequest{
+			request: types.PingRequest{
 				Message: "hi",
 			},
-			response: &model.PingResponse{
+			response: &types.PingResponse{
 				Message: "hi",
 			},
 		},
@@ -39,10 +39,10 @@ func Test_Pong(t *testing.T) {
 			Name:                "Ping/Pong override message test",
 			pongEnabled:         true,
 			pongOverrideMessage: "coop was here",
-			request: model.PingRequest{
+			request: types.PingRequest{
 				Message: "hi",
 			},
-			response: &model.PingResponse{
+			response: &types.PingResponse{
 				Message: "coop was here",
 			},
 		},

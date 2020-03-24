@@ -1,13 +1,13 @@
-package store
+package model
 
 import (
 	"common-go-example/internal/config"
-	"common-go-example/internal/model"
+	"common-go-example/internal/types"
 	"errors"
 )
 
-func Pong(request model.PingRequest) (*model.PingResponse, error) {
-	response := model.PingResponse{}
+func Pong(request types.PingRequest) (*types.PingResponse, error) {
+	response := types.PingResponse{}
 
 	const disabledMessage = "pong is currently on vacation and cannot be found"
 
