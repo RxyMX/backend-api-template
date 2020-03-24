@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-GOROOT=/usr/local/go #gosetup
-
 go fmt ./...
 #TODO: go a git commit for changed files after fmt
 go vet ./...
